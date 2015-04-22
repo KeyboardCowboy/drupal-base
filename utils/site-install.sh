@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Site update script
+# Site installation script
 
 # Run the script to symlink the hooks directory
-utils/symlink-hooks.sh
+echo $(utils/symlink-hooks.sh)
