@@ -1,0 +1,28 @@
+#!/bin/bash
+#
+# Automatically add ticket numbers to commit messages using branch descriptions.
+# Place this file in .git/hooks/commit-msg
+#
+# Add a description to your branch:
+# git branch --edit-description [branch-name]
+#
+# Mark your ticket numbers anywhere in the description using the following
+# syntax:
+#
+# [#12345678]
+#
+# Ex.
+# This branch is for tickets [#12345678], [#12345679] and
+# [#23456789].
+
+# Get the branch name
+NAME=$(git branch | grep '*' | sed 's/* //')
+
+# Get the branch description
+DESC=$(git config branch."$NAME".description)
+
+# Grab all the ticket strings out of the description.
+TICKETS=$(echo $DESC | grep -o '\[\#[0-9]*\]' | tr '\n' ' ')
+
+# Prepend the ticket numbers to the commit message
+echo "$TICKETS"$(cat "$1") > "$1"
