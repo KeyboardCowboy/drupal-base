@@ -1,2 +1,3 @@
 # Config Files and Dirs
 vendor
+/settings.local.php
